@@ -37,18 +37,22 @@ That asymmetry is the idea. The environment goes back; the knowledge does not.
 ```
 hindsight/
   tree.py       CheckpointTree — lineage, lookup, head movement. Pure.
-  runner.py     Runner Protocol — the seam. checkpoint() / restore().
+  runner.py     Runner Protocol — the seam. checkpoint() / restore() / exec().
   fake.py       FakeRunner — in-memory, deterministic, no credentials.
-  sandbox.py    SolariRunner — the ONLY module importing solari_sandbox.
+  sandbox.py    SolariRunner — the only module that calls the Solari SDK.
   session.py    Binds Runner + tree + transcript. Owns the rewind mechanic.
-  tools.py      checkpoint/rewind exposed as Claude tool definitions.
-  agent.py      The manual Claude loop.
-  cost.py       Token and sandbox-hour accounting.
-  report.py     run.json evidence writer.
+  tools.py      run/checkpoint/rewind/reset definitions, per-arm toolsets, dispatch.
+  agent.py      The manual Claude loop, and a system prompt per arm.
+  tasks.py      Benchmark task fixtures: setup script, prompt, verifier.
+  bench.py      One run per arm, verified independently; medians, spread, JSONL.
+  cost.py       Token cost estimate at Opus 5 list price.
+  config.py     Credential loading and identifier redaction.
+  cli.py        Entry point: run, task, bench. Builds the SDK client.
 ```
 
 **Boundary rule.** `tree`, `session`, and `agent` never import a Solari type. They
-see `Runner`. Three consequences, all deliberate:
+see `Runner`. `cli.py` constructs the `SandboxClient` and hands it to
+`SolariRunner`, which makes every SDK call. Three consequences, all deliberate:
 
 - the interesting logic is unit-testable with no API key and no spend
 - the Solari adapter can switch restore strategies without the agent noticing
