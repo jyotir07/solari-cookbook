@@ -11,6 +11,8 @@ import os
 from pathlib import Path
 
 BASE_URL = "https://api.getsolari.com"
+# Beside .env.example, where the README tells readers to create it.
+DEFAULT_ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
 
 
 def load_key(
