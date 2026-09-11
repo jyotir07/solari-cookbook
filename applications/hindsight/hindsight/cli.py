@@ -11,7 +11,7 @@ from anthropic import AsyncAnthropic
 from solari_sandbox import SandboxClient
 
 from hindsight.agent import Agent
-from hindsight.config import BASE_URL, load_key, redact
+from hindsight.config import BASE_URL, DEFAULT_ENV_FILE, load_key, redact
 from hindsight.cost import estimate_cost
 from hindsight.sandbox import SolariRunner
 from hindsight.session import Session
@@ -179,7 +179,7 @@ def main(argv: list[str] | None = None) -> int:
             reconfigure(encoding="utf-8", errors="replace")
 
     parser = argparse.ArgumentParser(prog="hindsight")
-    parser.add_argument("--env-file", type=Path, default=APP_ROOT.parent.parent / ".env")
+    parser.add_argument("--env-file", type=Path, default=DEFAULT_ENV_FILE)
     parser.add_argument("--model", default="claude-opus-5")
     parser.add_argument("--max-turns", type=int, default=25)
     sub = parser.add_subparsers(dest="command", required=True)

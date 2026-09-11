@@ -120,7 +120,7 @@ This uses real sandboxes and real model calls; normal charges apply.
 python -m unittest discover -s tests -v
 ```
 
-50 tests, no network and no credentials required — the agent loop is driven by
+51 tests, no network and no credentials required — the agent loop is driven by
 canned responses and the sandbox by an in-memory fake.
 
 ## Evidence contract

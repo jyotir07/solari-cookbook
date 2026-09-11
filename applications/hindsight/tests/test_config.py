@@ -6,7 +6,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from hindsight.config import load_key, redact
+from hindsight.config import DEFAULT_ENV_FILE, load_key, redact
+
+
+class DefaultEnvFileTests(unittest.TestCase):
+    def test_default_env_file_sits_beside_env_example(self) -> None:
+        # The README says to copy .env.example to .env in place. A default
+        # that looks anywhere else fails for everyone who follows it.
+        self.assertEqual(DEFAULT_ENV_FILE.name, ".env")
+        self.assertTrue((DEFAULT_ENV_FILE.parent / ".env.example").is_file())
 
 
 class LoadKeyTests(unittest.TestCase):
