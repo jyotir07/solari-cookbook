@@ -81,7 +81,9 @@ setup**: below that, rebuild; above it, rewind starts paying.
 
 **In-place `revert()` works, and restores correctly.** Verified by installing a
 package, writing a file, destroying both, reverting, and confirming both
-returned. This contradicts
+returned — that check, on its own, is
+[`examples/sandbox-checkpoint-rewind-py`](../../examples/sandbox-checkpoint-rewind-py).
+This contradicts
 [`applications/worldline`](../worldline)'s `DESIGN.md`, which records that on
 2026-09-01 an immediate revert returned `Not revertable`. We could not reproduce
 that failure a week later on the Sandbox client. Worldline's own revert path
